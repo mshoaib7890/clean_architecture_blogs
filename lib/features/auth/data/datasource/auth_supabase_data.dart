@@ -1,14 +1,15 @@
 import 'package:clean_architecture_blogs/core/error/exception.dart';
+import 'package:clean_architecture_blogs/features/auth/data/model/user_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract interface class AuthSupabaseData {
-  Future<String> signUpwithEmailPassword({
+  Future<UserModel> signUpwithEmailPassword({
     required String name,
     required String email,
     required String password,
   });
 
-  Future<String> loginWithEmailPassword({
+  Future<UserModel> loginWithEmailPassword({
     required String email,
     required String password,
   });
@@ -20,7 +21,7 @@ class AuthSupabaseDataImpl implements AuthSupabaseData {
   AuthSupabaseDataImpl(this.supabaseClient);
 
   @override
-  Future<String> signUpwithEmailPassword({
+  Future<UserModel> signUpwithEmailPassword({
     required String name,
     required String email,
     required String password,
@@ -35,14 +36,14 @@ class AuthSupabaseDataImpl implements AuthSupabaseData {
       if (response.user == null) {
         throw const ServerException('Sign up failed: User is null');
       }
-      return response.user!.id;
+      return UserModel.fromJson(response.user!.toJson());
     } catch (e) {
       throw ServerException('SignUp Error: ${e.toString()}');
     }
   }
 
   @override
-  Future<String> loginWithEmailPassword({
+  Future<UserModel> loginWithEmailPassword({
     required String email,
     required String password,
   }) async {
@@ -58,9 +59,8 @@ class AuthSupabaseDataImpl implements AuthSupabaseData {
       }
 
       // Successfully logged in user
-      final userId = response.user!.id;
-      print('Login Success: User ID: $userId');
-      return userId;
+      final userId = response.user!.toJson();
+      return UserModel.fromJson(userId);
     } catch (e) {
       throw ServerException('Login Error: ${e.toString()}');
     }

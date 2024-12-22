@@ -1,3 +1,4 @@
+import 'package:clean_architecture_blogs/features/auth/domain/entity/user.dart';
 import 'package:clean_architecture_blogs/features/auth/domain/repository/auth_repository.dart';
 import 'package:clean_architecture_blogs/core/error/exception.dart';
 import 'package:clean_architecture_blogs/core/error/failure.dart';
@@ -11,18 +12,18 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl(this.authSupabaseData);
 
   @override
-  Future<Either<Failure, String>> signUpWithEmailandPassword({
+  Future<Either<Failure, User>> signUpWithEmailandPassword({
     required String name,
     required String email,
     required String password,
   }) async {
     try {
-      final userId = await authSupabaseData.signUpwithEmailPassword(
+      final user = await authSupabaseData.signUpwithEmailPassword(
         name: name,
         email: email,
         password: password,
       );
-      return right(userId);
+      return right(user as User);
     } on ServerException catch (e) {
       return left(Failure(e.message));
     } catch (e) {
@@ -31,16 +32,16 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<Failure, String>> loginWithEmailandPassword({
+  Future<Either<Failure, User>> loginWithEmailandPassword({
     required String email,
     required String password,
   }) async {
     try {
-      final userId = await authSupabaseData.loginWithEmailPassword(
+      final user = await authSupabaseData.loginWithEmailPassword(
         email: email,
         password: password,
       );
-      return right(userId);
+      return right(user as User);
     } on ServerException catch (e) {
       return left(Failure(e.message));
     } catch (e) {

@@ -1,3 +1,4 @@
+import 'package:clean_architecture_blogs/features/auth/domain/entity/user.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clean_architecture_blogs/features/auth/domain/usecases/signup_usecase.dart';
 
@@ -10,6 +11,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc({required this.signUpUseCase}) : super(AuthInitial()) {
     on<AuthSignUp>((event, emit) async {
       emit(AuthLoading());
+
       try {
         final result = await signUpUseCase(
           SignUpUsecaseParams(
@@ -21,7 +23,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
         result.fold(
           (failure) => emit(AuthFailure(failure.message)),
-          (userId) => emit(AuthSuccess(userId)),
+          (user) => emit(AuthSuccess(user)),
         );
       } catch (e) {
         emit(AuthFailure("Unexpected error: $e"));
