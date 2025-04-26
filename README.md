@@ -1,89 +1,63 @@
-# 💰 Budgeto – Budget Management App (Flutter + GetX)
+# 📝 Blogs App – Clean Architecture with Flutter BLoC
 
-Budgeto ek simple aur powerful budget management app hai jo users ko apne daily expenses track karne, budget set karne aur category-wise spending dekhne ki sahulat deta hai. Ye app **Flutter** aur **GetX (MVVM architecture)** ka use karti hai for fast and reactive performance.
+This is a simple yet powerful **Blogs App** built using **Flutter** and **BLoC pattern**, following the principles of **Clean Architecture**. The app allows users to read and manage blogs with a clean separation of concerns across different layers.
 
 ---
 
 ## 📱 Features
 
-### ✅ Expense Management
-- Add, edit, delete daily expenses
-- Assign category, amount, and date to each expense
-- Real-time updates with GetX `Obx` and `GetBuilder`
-
-### 🏦 Budget Planning
-- Set monthly budget goals
-- Alerts on exceeding the budget
-- Track remaining and used budget
-
-### 📊 Smart Dashboard
-- Summary of total expenses, remaining budget, and balance
-- Pie chart / bar chart view for category-wise expenses
-
-### 🔍 Filter & Search
-- Filter expenses by category, date range, or amount
-- Dynamic UI updates using GetX state management
-
-### 📂 Category Control
-- Manage expense categories (add/edit/delete)
-
-### 🌙 Dark & Light Mode
-- Toggle between light and dark theme
-- Theme state managed with GetX ThemeController
+- 📄 View list of blogs
+- 🔍 View full blog details
+- ➕ Add new blog (optional)
+- ✏️ Edit and delete existing blogs (optional)
+- 🔄 Pull-to-refresh
+- ⚡ Responsive and smooth UI with BLoC state management
 
 ---
 
-## ⚙️ Architecture
+## 🧠 Architecture
 
-This app uses **MVVM** architecture with **GetX**:
+This app uses **Clean Architecture** with a layered approach:
 
 ```
 lib/
 │
-├── models/         # Data models (Expense, Category, Budget)
-├── views/          # UI screens
-├── controllers/    # ViewModels with GetX logic
-├── services/       # Data handling (e.g., local DB)
-├── bindings/       # Dependency injections
-└── main.dart       # Entry point
+├── core/               # Core utilities, constants, error handling
+├── features/
+│   └── blog/
+│       ├── data/       # Repositories, API services, models (DTO)
+│       ├── domain/     # Entities, repositories abstract, use cases
+│       └── presentation/
+│           ├── bloc/   # BLoC and event/state management
+│           └── pages/  # UI screens
+├── main.dart           # Entry point
 ```
 
 ---
 
-## 💾 Local Storage
+## 🔧 Tech Stack
 
-- Expenses and budget data are stored using **Hive** or **SharedPreferences** (based on your setup).
-- Data persists even after app restarts.
-
----
-
-## 🛠️ Tech Stack
-
-- Flutter 💙
-- GetX for State Management 🚀
-- MVVM Architecture 🧠
-- Hive / SharedPreferences (for local storage)
-- Charts package (for data visualization)
-
----
-
-## 📸 Screenshots
-
-(Add your app screenshots here)
+- Flutter 🧡
+- BLoC (flutter_bloc package)
+- Clean Architecture 🏛️
+- Dartz for functional programming style (optional)
+- Equatable for value comparison
+- HTTP or Dio (for APIs)
+- Responsive UI design
 
 ---
 
 ## 🚀 Getting Started
 
-1. Clone this repo:
+1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/budgeto.git
+   git clone https://github.com/your-username/blogs_app.git
    ```
-2. Navigate to project folder:
+2. Move into the project directory:
    ```bash
-   cd budgeto
+   cd blogs_app
    ```
-3. Get dependencies:
+3. Install dependencies:
    ```bash
    flutter pub get
    ```
@@ -94,10 +68,16 @@ lib/
 
 ---
 
+## 📸 Screenshots
+
+(Add app screenshots here to showcase UI)
+
+---
+
 ## 🙌 Credits
 
 Developed by **Shoaib**  
-Feel free to contribute or suggest features!
+Using Flutter + Clean Architecture + BLoC 💙
 
 ---
 
